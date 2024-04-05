@@ -1,0 +1,20 @@
+body { 
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#grid {
+    outline: 5px solid black;
+    flex: 0 1 50vh;
+    display: flex;
+    flex-wrap: wrap ;
+}
+
+.cells {
+    outline: 1px solid black;
+    background-color: white;
+}
