@@ -5,6 +5,12 @@ body {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
+    gap: 25px;
+}
+
+button {
+    background-color: white;
+    border-color: black;
 }
 
 #grid {
@@ -14,7 +20,13 @@ body {
     flex-wrap: wrap ;
 }
 
+#title {
+    font-size: 2rem;
+}
+
 .cells {
     outline: 1px solid black;
     background-color: white;
+    flex-grow: 0;
+    flex-shrink: 1;
 }
