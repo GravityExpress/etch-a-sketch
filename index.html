@@ -11,6 +11,15 @@
     <div id="buttons-container">
         <button id="grid-size-button">Set Grid Size</button>
         <button id="grid-clear-button">Clear Grid</button>
+        <fieldset>
+            <legend>Choose color mode:</legend>
+            <input type="radio" id="rainbowChoice" name="color-mode" value="rainbow"/>
+            <label for="rainbowChoice">Rainbow</label>
+            <input type="radio" id="blackChoice" name="color-mode" value="black" checked/>
+            <label for="blackChoice">Black</label>
+            <input type="radio" id="shadeChoice" name="color-mode" value="shade"/>
+            <label for="shadeChoice"> Shade </label>
+        </fieldset>
     </div>
     <div id="grid"></div>
     <script src="script.js"></script>

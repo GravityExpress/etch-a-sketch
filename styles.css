@@ -13,11 +13,25 @@ button {
     border-color: black;
 }
 
+legend {
+    text-align: center;
+}
+
+fieldset {
+    border-color: black;
+}
+
 #grid {
     outline: 5px solid black;
     flex: 0 1 50vh;
     display: flex;
     flex-wrap: wrap ;
+}
+
+#buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
 }
 
 #title {
@@ -28,5 +42,5 @@ button {
     outline: 1px solid black;
     background-color: white;
     flex-grow: 0;
-    flex-shrink: 1;
+    flex-shrink: 0;
 }

@@ -17,6 +17,7 @@ function changeGridSize(cellSize, cells)
     cells.forEach((cell) => {
         cell.style.width = cellSize;
         cell.style.height = cellSize;
+        cell.style.backgroundColor = `rgb(255 255 255 / 0)`;
     });
 }
 
@@ -32,20 +33,55 @@ function addGridEvent()
     cells.forEach((cell) => {
         cell.addEventListener("mouseover",
             (event) => {
-                event.target.style.backgroundColor = "black";
+                if (colorMode === "black")
+                {
+                    event.target.style.backgroundColor = `rgb(0 0 0)`;
+                }
+                else if (colorMode === "rainbow")
+                {
+                    event.target.style.backgroundColor = `rgb(${randomColor()} ${randomColor()} ${randomColor()})`;
+                }
+                else if (colorMode === "shade")
+                {
+                    let alphaCh = event.target.style.backgroundColor;
+                    let regEx = /[^,]+(?=\))/;
+                    alphaCh = regEx.exec(alphaCh);
+
+                    if (event.target.style.backgroundColor !== "rgb(0, 0, 0)")
+                    {
+                        event.target.style.backgroundColor = `rgba(0 0 0 / ${+alphaCh + 0.1})`;
+                    }
+                }
             }
         );
     });    
+}
+
+function randomColor()
+{
+    return Math.floor((Math.random() * 255) + 1);
 }
 
 let gridSize = 50;
 let grid = document.querySelector("#grid");
 grid.style.width = gridSize + "vh";
 let cells;
+let colorMode = "black";
+const radioButtons = document.querySelectorAll("input[name = 'color-mode']");
+
+radioButtons.forEach((choice) => {
+    choice.addEventListener("change",
+    () => {
+        if (choice.checked)
+        {
+            colorMode = choice.value;
+        }
+    });
+});
 
 createGrid();
 
-let gridSizeButton = document.querySelector("#grid-size-button");
+const gridSizeButton = document.querySelector("#grid-size-button");
 let cellCount = 0;
 
 gridSizeButton.addEventListener("click",
@@ -63,12 +99,12 @@ gridSizeButton.addEventListener("click",
     }
 );
 
-let gridResetButton = document.querySelector("#grid-clear-button");
+const gridResetButton = document.querySelector("#grid-clear-button");
 
 gridResetButton.addEventListener("click",
     () => {
         cells.forEach((cell) => {
-            cell.style.backgroundColor = "white";
+            cell.style.backgroundColor = `rgb(255 255 255 / 0)`;
         });
     }
 );
