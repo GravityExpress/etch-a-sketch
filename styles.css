@@ -23,7 +23,7 @@ fieldset {
 
 #grid {
     outline: 5px solid black;
-    flex: 0 1 50vh;
+    flex: 0 1 75vh;
     display: flex;
     flex-wrap: wrap ;
 }

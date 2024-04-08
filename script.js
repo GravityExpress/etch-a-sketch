@@ -85,7 +85,7 @@ function randomColor()
     return Math.floor((Math.random() * 255) + 1);
 }
 
-let gridSize = 50;
+let gridSize = 75;
 let grid = document.querySelector("#grid");
 grid.style.width = gridSize + "vh";
 let cells;
