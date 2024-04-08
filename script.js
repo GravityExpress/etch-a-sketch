@@ -17,7 +17,7 @@ function changeGridSize(cellSize, cells)
     cells.forEach((cell) => {
         cell.style.width = cellSize;
         cell.style.height = cellSize;
-        cell.style.backgroundColor = `rgb(255 255 255 / 0)`;
+        cell.style.backgroundColor = `rgba(255 255 255 / 0)`;
     });
 }
 
@@ -33,23 +33,46 @@ function addGridEvent()
     cells.forEach((cell) => {
         cell.addEventListener("mouseover",
             (event) => {
-                if (colorMode === "black")
+                if (!shadeCheckBox.checked)
                 {
-                    event.target.style.backgroundColor = `rgb(0 0 0)`;
-                }
-                else if (colorMode === "rainbow")
-                {
-                    event.target.style.backgroundColor = `rgb(${randomColor()} ${randomColor()} ${randomColor()})`;
-                }
-                else if (colorMode === "shade")
-                {
-                    let alphaCh = event.target.style.backgroundColor;
-                    let regEx = /[^,]+(?=\))/;
-                    alphaCh = regEx.exec(alphaCh);
-
-                    if (event.target.style.backgroundColor !== "rgb(0, 0, 0)")
+                    if (colorMode === "black")
                     {
-                        event.target.style.backgroundColor = `rgba(0 0 0 / ${+alphaCh + 0.1})`;
+                        event.target.style.backgroundColor = `rgba(0 0 0 / 1)`;
+                    }
+                    else if (colorMode === "rainbow")
+                    {
+                        event.target.style.backgroundColor = `rgba(${randomColor()} ${randomColor()} ${randomColor()} / 1)`;
+                    }    
+                }
+                else
+                {
+                    let cellColor = event.target.style.backgroundColor;
+                    cellColor = cellColor.substr(cellColor.indexOf("("), cellColor.length - 1).replaceAll(/[() ]/g, '').split(',');
+
+                    let redColor = cellColor[0];
+                    let blueColor = cellColor[1];
+                    let greenColor = cellColor[2];
+
+                    if (event.target.style.backgroundColor === "rgba(255, 255, 255, 0)")
+                    {
+                        if (colorMode === "black")
+                        {
+                            event.target.style.backgroundColor = `rgba(0 0 0 / 0.1)`;
+                        }
+                        else if (colorMode === "rainbow")
+                        {
+                            event.target.style.backgroundColor = `rgba(${randomColor()} ${randomColor()} ${randomColor()} / 0.1)`;
+                        }    
+                    }
+                    else
+                    {
+                        let alphaColor;
+                        
+                        if(cellColor.length === 4)
+                        {
+                            alphaColor = cellColor[3];
+                            event.target.style.backgroundColor = `rgba(${redColor} ${blueColor} ${greenColor} / ${(+alphaColor + 0.1).toFixed(1)})`;
+                        }
                     }
                 }
             }
@@ -68,6 +91,7 @@ grid.style.width = gridSize + "vh";
 let cells;
 let colorMode = "black";
 const radioButtons = document.querySelectorAll("input[name = 'color-mode']");
+const shadeCheckBox = document.querySelector("#shadeChoice");
 
 radioButtons.forEach((choice) => {
     choice.addEventListener("change",
@@ -104,7 +128,7 @@ const gridResetButton = document.querySelector("#grid-clear-button");
 gridResetButton.addEventListener("click",
     () => {
         cells.forEach((cell) => {
-            cell.style.backgroundColor = `rgb(255 255 255 / 0)`;
+            cell.style.backgroundColor = `rgba(255 255 255 / 0)`;
         });
     }
 );
